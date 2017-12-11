@@ -48,10 +48,10 @@ $("body").append(popdiv);
 //var tabs = topnav.getElementsByTagName("a");
 
 // // alternate to the previous two lines
-// var tabs = document.querySelectorAll("#topNav a");
+//var tabs = document.querySelectorAll("#topNav a");
 
 // for (var index = 0; index < tabs.length; index++) {
-//     var tab = tabs[index];
+  //   var tab = tabs[index];
 //     tab.onmouseenter=function() {ShowPopup(this)}
 //     tab.onmouseleave=function() {HidePopup()}
 // }
@@ -82,6 +82,9 @@ function ShowPopup(tab)
         case "Sports":
             popuptext = "See our new line of sporting goods!";
             break;
+        case "More Information":
+            popuptext = "Get more info";
+            break;    
         default:
             popuptext = "";
             break;
