@@ -38,6 +38,7 @@
             Select a color: 
             <select id="bikecolor">
                 <option value="">Select a bike color...</option>
+                
                 <option value="">All</option>
                 <option>Black</option>
                 <option>Blue</option>
@@ -66,7 +67,11 @@
 <script>
     // Add code here to add the event handler function below to 
     // to the select list's 
+    (function(){
+        var selColor = document.getElementById("bikecolor");
+        selColor.onchange = function(){GetBikes(this);}
 
+    })();
 
 
     // Add an event handler function here to fetch the Bikes data
@@ -75,14 +80,7 @@
     function GetBikes(select)
     {
         // get the color from the dropdown list 
-
-
-
-        // build the odata filter query string
-
-
-
-        // use jQuery to make the Ajax call
+        var color = select.options[select.selectedIndex].value;
 
     }
 
@@ -90,13 +88,46 @@
         // Write a function to be called from the Ajax success function. 
         // Add rows to the the existing HTML table.
 
+        var filter = "";
+        if (color!=""){
+            filter"?$filter=color eq '" + color +"'";
+        }
+        $.ajax({
+            url:"file:///Users/lucashinegardner/Documents/Javascript-MAXMaterial/Module%204/Lab4/Sports.html" + filter,
+            type: "GET",
+            dataType: 'json',
+            success: function(data) {UpdateTable(data)},
+            error: function(jqXHR,ex,msg){
+                alert("Error from server: " +
+                    jqXHR.responseText +
+                    "/nException: " +ex +
+                    "/nMessage: " +msg +
+                    "/nMessage from server: " + jqXHR.responseText);
+            }
+
+        })
         function UpdateTable(data) {
-
-
-
+            alert(JSON.stringify(data));
         }
 
+    var products = document.getElementById("products");
+    products.innerHTML = "";
+    var rownum = 0;
+    var row;
+    var cell;
+    var BikesList = data.value;
+
     
+   
+for (var index = 0; index <BikesList.length; index++){
+    var item = BikesList[index];
+    row = products.insertRow(rownum);
+     var headings = ["ID", "Color", "Category", "Size","Price"];
+    for (var i = 0; i <headings.length; i++){
+        row.insertCell(i).innerHTML = headings[i];
+    }
+    rownum++;
+}
 </script>
 
     <style>
